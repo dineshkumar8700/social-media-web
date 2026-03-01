@@ -1,11 +1,12 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
 import { handleLogin, handleSignup } from "./handlers/auth.js";
+import { serveDashboard } from "./handlers/dashboard.js";
 
 export const createApp = () => {
   const app = new Hono();
 
-  app.get("/*", serveStatic({ root: "public" }));
+  app.get("/dashboard.html", serveDashboard);
 
   app.post("/login", (ctx) => {
     return handleLogin(ctx);
@@ -14,6 +15,8 @@ export const createApp = () => {
   app.post("/signup", (ctx) => {
     return handleSignup(ctx);
   });
+
+  app.get("/*", serveStatic({ root: "public" }));
 
   return app;
 };
