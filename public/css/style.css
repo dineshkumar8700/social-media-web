@@ -16,6 +16,11 @@ header {
   border-bottom: 1px solid #c4c1c1;
 }
 
+.site-title {
+  text-align: center;
+  color: #222;
+}
+
 main {
   padding: 50px 100px;
 }
@@ -26,9 +31,10 @@ main {
   align-items: center;
 }
 
-h2 {
+form h2 {
   text-align: center;
-  color: #222;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
 }
 
 .field {

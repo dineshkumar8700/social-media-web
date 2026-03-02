@@ -129,3 +129,10 @@ article {
   height: 85vh;
   margin-left: 20px;
 }
+
+.post-impressions svg {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  margin-right: 2px;
+}
