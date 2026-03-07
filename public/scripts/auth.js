@@ -15,6 +15,6 @@ export const validateUser = (form, action) => {
         errorArea.textContent = ERROR_MSG[res.errorCode];
         return;
       }
-      redirectUser("/dashboard");
+      redirectUser("/feed");
     });
 };
