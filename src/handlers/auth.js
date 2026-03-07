@@ -1,4 +1,4 @@
-import { setCookie } from "hono/cookie";
+import { deleteCookie, setCookie } from "hono/cookie";
 
 const extractUserInfo = (fd) => {
   const username = fd.get("username");
@@ -16,13 +16,11 @@ export const handleLogin = async (ctx) => {
   const users = JSON.parse(Deno.readTextFileSync("db/in-memory/users.json"));
 
   const { username, password } = extractUserInfo(formData);
-
-  const user = users.find((user) => {
-    return user.username === username;
-  });
+  const user = users.find((user) => user.username === username);
 
   if (!user || user.password !== password) {
-    return ctx.json({ hasError: true });
+    ctx.status(401);
+    return ctx.json({ hasError: true, errorCode: 401 });
   }
 
   setUserCookie(ctx, username);
@@ -35,17 +33,20 @@ export const handleSignup = async (ctx) => {
 
   const { username, password } = extractUserInfo(formData);
 
-  const user = users.find((user) => {
-    return user.username === username;
-  });
-
+  const user = users.find((user) => user.username === username);
   if (user) {
-    return ctx.text("username already taken");
+    ctx.status(409);
+    return ctx.json({ hasError: true, errorCode: 409 });
   }
 
   users.push({ username, password });
-
   Deno.writeTextFileSync("db/in-memory/users.json", JSON.stringify(users));
+  setUserCookie(ctx, username);
 
-  return ctx.redirect("/dashboard.html", 303);
+  return ctx.json({ hasError: false });
+};
+
+export const handleLogout = (ctx) => {
+  deleteCookie(ctx, "username");
+  ctx.json({ success: true });
 };
