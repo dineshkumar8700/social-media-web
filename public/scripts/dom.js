@@ -30,7 +30,3 @@ export const ELEMENTS = {
 };
 
 export const cls = (classString) => ({ class: classString });
-
-const icons = {
-  comment: 1,
-};

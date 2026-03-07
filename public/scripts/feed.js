@@ -1,16 +1,6 @@
-import { redirectUser } from "./utils.js";
 import { cls, createFragment, ELEMENTS } from "./dom.js";
 
 const { ARTICLE, DIV, IMG, P, H4 } = ELEMENTS;
-
-const logout = () => {
-  const logoutBtn = document.querySelector(".logout-btn");
-  logoutBtn.addEventListener("click", () => {
-    fetch("/logout").then((_) => {
-      redirectUser("/");
-    });
-  });
-};
 
 const displayPosts = (posts, container) => {
   const fragments = posts.map((post) => {

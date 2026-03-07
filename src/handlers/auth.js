@@ -48,5 +48,5 @@ export const handleSignup = async (ctx) => {
 
 export const handleLogout = (ctx) => {
   deleteCookie(ctx, "username");
-  return ctx.json({ success: true });
+  return ctx.redirect("/");
 };

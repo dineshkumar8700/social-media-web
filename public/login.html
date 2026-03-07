@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <h2 class="site-title">Social Media</h2>
+  </header>
+
+  <main>
+    <section class="login-form">
+      <form action="/login" method="POST">
+        <h2>Login</h2>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="text" name="password" id="password" required>
+        </div>
+        <div class="error-msg"></div>
+        <p class="alternate-option">Don't have an account? <a href="/signup.html">signup</a></p>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+  </main>
+  <script type="module" src="scripts/main.js"></script>
+</body>
+
+</html>
