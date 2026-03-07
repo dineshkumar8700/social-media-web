@@ -2,15 +2,26 @@ main {
   display: flex;
   position: fixed;
   margin-top: 60px;
+  width: 100%;
+  padding: 50px;
 }
 
 header {
   position: fixed;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.username {
+  position: absolute;
+  right: 100px;
 }
 
 aside {
-  width: 20%;
+  width: 15%;
+  min-width: 180px;
   border-right: 1px solid #8e8b8b;
   padding-right: 50px;
   height: 85vh;
@@ -23,8 +34,8 @@ aside {
 aside ul li {
   list-style: none;
   font-size: 18px;
-  padding: 6px 10px;
-  width: max-content;
+  padding: 8px 10px;
+  width: 100%;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -32,7 +43,7 @@ aside ul li {
 aside ul {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 aside ul li:hover {
@@ -76,7 +87,7 @@ article {
   align-items: flex-start;
   gap: 10px;
   border-bottom: 1px solid #8d8d8d;
-  padding: 10px 40px;
+  padding: 10px 30px;
 }
 
 .user-avatar img {
@@ -125,7 +136,7 @@ article {
 
 .sidebar {
   background-color: #222;
-  width: 25%;
+  width: 22%;
   height: 85vh;
   margin-left: 20px;
 }

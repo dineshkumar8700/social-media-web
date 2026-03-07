@@ -1,8 +1,14 @@
+import { setCookie } from "hono/cookie";
+
 const extractUserInfo = (fd) => {
   const username = fd.get("username");
   const password = fd.get("password");
 
   return { username, password };
+};
+
+const setUserCookie = (ctx, username) => {
+  setCookie(ctx, "username", username);
 };
 
 export const handleLogin = async (ctx) => {
@@ -16,10 +22,11 @@ export const handleLogin = async (ctx) => {
   });
 
   if (!user || user.password !== password) {
-    return ctx.text("incorrect username or password");
+    return ctx.json({ hasError: true });
   }
 
-  return ctx.redirect("/dashboard.html", 303);
+  setUserCookie(ctx, username);
+  return ctx.json({ hasError: false });
 };
 
 export const handleSignup = async (ctx) => {

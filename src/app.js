@@ -1,12 +1,15 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
+import { logger } from "hono/logger";
 import { handleLogin, handleSignup } from "./handlers/auth.js";
 import { serveDashboard } from "./handlers/dashboard.js";
 
 export const createApp = () => {
   const app = new Hono();
 
-  app.get("/dashboard.html", serveDashboard);
+  app.use(logger());
+
+  app.get("/dashboard", serveDashboard);
 
   app.post("/login", (ctx) => {
     return handleLogin(ctx);
