@@ -39,7 +39,10 @@ aside ul li {
   border-radius: 10px;
   cursor: pointer;
 }
-
+aside ul li a {
+  color: #000;
+  text-decoration: none;
+}
 aside ul {
   display: flex;
   flex-direction: column;
@@ -50,6 +53,10 @@ aside ul li:hover {
   background-color: #222;
   color: #fff;
   fill: #fff;
+}
+
+aside ul li:hover a {
+  color: #fff;
 }
 
 aside ul li span svg {
