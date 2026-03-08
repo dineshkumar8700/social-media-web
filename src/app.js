@@ -4,6 +4,7 @@ import { logger } from "hono/logger";
 import { handleLogin, handleLogout, handleSignup } from "./handlers/auth.js";
 import { serveFeed, servePosts } from "./handlers/feed.js";
 import { serveHome } from "./handlers/home.js";
+import { hanleAddPost } from "./handlers/post.js";
 
 export const createApp = () => {
   const app = new Hono();
@@ -15,6 +16,8 @@ export const createApp = () => {
   app.get("/feed", serveFeed);
 
   app.get("/posts", servePosts);
+
+  app.post("/add-post", hanleAddPost);
 
   app.post("/login", handleLogin);
 

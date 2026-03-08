@@ -27,6 +27,7 @@ export const ELEMENTS = {
   IMG: "img",
   P: "p",
   SVG: "svg",
+  TEXTAREA: "textarea",
 };
 
 export const cls = (classString) => ({ class: classString });
