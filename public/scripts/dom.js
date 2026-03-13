@@ -28,6 +28,7 @@ export const ELEMENTS = {
   P: "p",
   SVG: "svg",
   TEXTAREA: "textarea",
+  SECTION: "section",
 };
 
 export const cls = (classString) => ({ class: classString });

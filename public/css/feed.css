@@ -156,9 +156,9 @@ article {
   margin-right: 2px;
 }
 
-.new-post-form {
-  width: 400px;
-  height: 400px;
+.post-modal {
+  width: 500px;
+  height: 320px;
   background-color: #222;
   border: 1px solid #c6c1c1;
   border-radius: 10px;
@@ -166,4 +166,27 @@ article {
   top: 100px;
   left: 35%;
   z-index: 10;
+  padding: 20px 10px;
+  color: whitesmoke;
+}
+
+.new-post-form textarea {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+  font-size: 16px;
+  color: #444;
+  font-weight: 500;
+}
+
+.close-modal-btn {
+  font-size: 600;
+  background-color: transparent;
+  color: whitesmoke;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
 }

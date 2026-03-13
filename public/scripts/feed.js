@@ -1,5 +1,6 @@
 import { cls, createFragment, ELEMENTS } from "./dom.js";
-const { ARTICLE, DIV, IMG, P, H4, FORM, LABEL, TEXTAREA, BUTTON } = ELEMENTS;
+const { ARTICLE, DIV, IMG, P, H4, FORM, LABEL, TEXTAREA, BUTTON, SECTION } =
+  ELEMENTS;
 
 const displayPosts = (posts, container) => {
   const fragments = posts.map((post) => {
@@ -42,12 +43,13 @@ const fetchPosts = () => {
   return fetch("/posts").then((posts) => posts.json());
 };
 
-const addPostSubmitListener = (form) => {
+const addPostSubmitListener = (postModal) => {
   const container = document.querySelector("section");
-
+  const form = postModal.querySelector("form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+    form.reset();
     fetch("/add-post", { method: "post", body: formData })
       .then((res) => res.json())
       .then((post) => displayPosts([post], container));
@@ -57,17 +59,38 @@ const addPostSubmitListener = (form) => {
 const addPost = () => {
   const post = document.querySelector(".post-btn");
   post.addEventListener("click", (e) => {
-    const postForm = createFragment([FORM, {
-      ...cls("new-post-form"),
-      method: "POST",
-      action: "/add-post",
-    }, [DIV, {}, [LABEL, { for: "content" }, "Content:"], [
-      TEXTAREA,
-      { ...cls("post-content"), name: "content", id: "content" },
-    ]], [BUTTON, { type: "submit" }, "Post"]]);
-    addPostSubmitListener(postForm);
+    const postModal = createFragment([SECTION, { ...cls("post-modal") }, [
+      BUTTON,
+      { ...cls("close-modal-btn") },
+      "X",
+    ], [
+      FORM,
+      {
+        ...cls("new-post-form"),
+        method: "POST",
+        action: "/add-post",
+      },
+      [DIV, {}, [
+        TEXTAREA,
+        {
+          ...cls("post-content"),
+          name: "content",
+          id: "content",
+          rows: 8,
+          required: true,
+          placeholder: "What's in your mind today...",
+        },
+      ]],
+      [BUTTON, { type: "submit" }, "Post"],
+    ]]);
+    addPostSubmitListener(postModal);
     const body = document.querySelector("body");
-    body.append(postForm);
+    body.append(postModal);
+
+    const closeBtn = document.querySelector(".close-modal-btn");
+    closeBtn.addEventListener("click", (e) => {
+      postModal.remove();
+    });
   });
 };
 
