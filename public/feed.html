@@ -64,6 +64,39 @@
 
     <aside class="sidebar"></aside>
   </main>
+
+  <template class="post-template">
+    <article>
+      <div class="user-avatar">
+        <img src="" alt="user display picture">
+      </div>
+      <div class="post-details">
+        <div class="user-detail">
+          <h4></h4>
+          <p></p>
+        </div>
+        <p class="post-time"></p>
+        <p class="post-content"></p>
+        <div class="post-impressions">
+          <p class="comments">Comments: <span></span></p>
+          <p class="likes">Likes: <span></span></p>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="new-post-template">
+    <section class="post-modal">
+      <button class="close-btn">X</button>
+      <form action="/add-post" method="POST" class="new-post-form">
+        <div>
+          <textarea name="content" placeholder="What's in your mind today..." rows="8" required></textarea>
+        </div>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+  </template>
+
   <script type="module" src="scripts/feed.js"></script>
 </body>
 

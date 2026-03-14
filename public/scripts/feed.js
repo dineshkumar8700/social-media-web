@@ -1,108 +1,85 @@
-import { cls, createFragment, ELEMENTS } from "./dom.js";
-const { ARTICLE, DIV, IMG, P, H4, FORM, TEXTAREA, BUTTON, SECTION } = ELEMENTS;
+const sendRequest = (url, method, body) =>
+  fetch(url, { method, body }).then((res) => res.json());
 
-const displayPosts = (posts, container) => {
-  const fragments = posts.map((post) => {
-    const fragment = createFragment([
-      ARTICLE,
-      {},
-      [DIV, { ...cls("user-avatar") }, [IMG, {
-        src: "/images/user-avatar.png",
-        alt: "user avatar",
-        ...cls("user-avatar"),
-      }, ""]],
-      [
-        DIV,
-        { class: "post-details" },
-        [DIV, { ...cls("user-detail") }, [
-          H4,
-          {},
-          post.author.name,
-        ], [P, {}, post.author.username]],
-        [P, { class: "post-time" }, post.time_ago],
-        [P, { class: "post-content" }, post.content],
-        [DIV, { class: "post-impressions" }, [
-          P,
-          { class: "comments" },
-          `Comments: ${post.comments}`,
-        ], [
-          P,
-          { class: "likes" },
-          `Likes: ${post.likes}`,
-        ]],
-      ],
-    ]);
-    return fragment;
-  });
-
-  container.prepend(...fragments);
-};
-
-const fetchPosts = () => {
-  return fetch("/posts").then((posts) => posts.json());
-};
-
-const addPostSubmitListener = (postModal) => {
-  const container = document.querySelector("section");
+const postSubmit = (postModal) => {
+  const postsContainer = document.querySelector(".posts-container");
   const form = postModal.querySelector("form");
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     form.reset();
-    fetch("/add-post", { method: "post", body: formData })
-      .then((res) => res.json())
+    sendRequest("/add-post", "POST", formData)
       .then((post) => {
-        displayPosts([post], container);
+        const template = createPostTemplate(post);
+        postsContainer.prepend(template);
         postModal.remove();
       });
   });
 };
 
-const addPost = () => {
-  const post = document.querySelector(".post-btn");
-  post.addEventListener("click", () => {
-    const postModal = createFragment([SECTION, { ...cls("post-modal") }, [
-      BUTTON,
-      { ...cls("close-modal-btn") },
-      "X",
-    ], [
-      FORM,
-      {
-        ...cls("new-post-form"),
-        method: "POST",
-        action: "/add-post",
-      },
-      [DIV, {}, [
-        TEXTAREA,
-        {
-          ...cls("post-content"),
-          name: "content",
-          id: "content",
-          rows: 8,
-          required: true,
-          placeholder: "What's in your mind today...",
-        },
-      ]],
-      [BUTTON, { type: "submit" }, "Post"],
-    ]]);
-    addPostSubmitListener(postModal);
-    const body = document.querySelector("body");
-    body.append(postModal);
+const createPostTemplate = (post) => {
+  const postTemplate = document.querySelector(".post-template");
+  const template = postTemplate.content.cloneNode(true);
+  const img = template.querySelector(".user-avatar img");
 
-    const closeBtn = document.querySelector(".close-modal-btn");
-    closeBtn.addEventListener("click", () => {
-      postModal.remove();
-    });
+  img.setAttribute("src", "/images/user-avatar.png");
+  template.querySelector(".post-time").textContent = post.time_ago;
+  template.querySelector(".user-detail h4").textContent = post.author.name;
+  template.querySelector(".user-detail p").textContent = post.author.username;
+  template.querySelector(".post-content").textContent = post.content;
+  template.querySelector(".comments span").textContent = post.comments;
+  template.querySelector(".likes span").textContent = post.likes;
+
+  return template;
+};
+
+const modalClose = (modal) => {
+  const closeBtn = modal.querySelector(".close-btn");
+  closeBtn.addEventListener("click", () => {
+    modal.remove();
   });
+};
+
+const openPostModal = () => {
+  const template = document.querySelector("#new-post-template");
+  const clone = template.content.cloneNode(true);
+  const modal = clone.querySelector(".post-modal");
+  const body = document.querySelector("body");
+  body.append(clone);
+
+  return modal;
+};
+
+const attachNewPostListener = () => {
+  const addPostBtn = document.querySelector(".post-btn");
+
+  addPostBtn.addEventListener("click", () => {
+    const modal = openPostModal();
+    postSubmit(modal);
+    modalClose(modal);
+  });
+};
+
+const showUserName = () => {
+  sendRequest("/user-info", "GET")
+    .then(({ username }) => {
+      const usernamePlaceholder = document.querySelector(".username span");
+      usernamePlaceholder.textContent = username;
+    });
+};
+
+const displayPosts = (container) => {
+  sendRequest("/posts", "GET")
+    .then((posts) => {
+      const postTemplates = posts.map(createPostTemplate);
+      container.prepend(...postTemplates);
+    });
 };
 
 globalThis.onload = () => {
   const container = document.querySelector(".posts-container");
-  fetchPosts()
-    .then((posts) => displayPosts(posts, container));
-  fetch("/user-info").then((res) => res.json()).then(({ username }) => {
-    const usernamePlaceholder = document.querySelector(".username span");
-    usernamePlaceholder.textContent = username;
-  });
-  addPost();
+  displayPosts(container);
+  showUserName();
+  attachNewPostListener();
 };
