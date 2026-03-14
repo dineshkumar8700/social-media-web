@@ -5,6 +5,7 @@ import { handleLogin, handleLogout, handleSignup } from "./handlers/auth.js";
 import { serveFeed, servePosts } from "./handlers/feed.js";
 import { serveHome } from "./handlers/home.js";
 import { hanleAddPost } from "./handlers/post.js";
+import { getCookie } from "hono/cookie";
 
 export const createApp = () => {
   const app = new Hono();
@@ -16,6 +17,11 @@ export const createApp = () => {
   app.get("/feed", serveFeed);
 
   app.get("/posts", servePosts);
+
+  app.get("/user-info", (c) => {
+    const username = getCookie(c, "username");
+    return c.json({ username });
+  });
 
   app.post("/add-post", hanleAddPost);
 

@@ -1,6 +1,5 @@
 import { cls, createFragment, ELEMENTS } from "./dom.js";
-const { ARTICLE, DIV, IMG, P, H4, FORM, LABEL, TEXTAREA, BUTTON, SECTION } =
-  ELEMENTS;
+const { ARTICLE, DIV, IMG, P, H4, FORM, TEXTAREA, BUTTON, SECTION } = ELEMENTS;
 
 const displayPosts = (posts, container) => {
   const fragments = posts.map((post) => {
@@ -52,13 +51,16 @@ const addPostSubmitListener = (postModal) => {
     form.reset();
     fetch("/add-post", { method: "post", body: formData })
       .then((res) => res.json())
-      .then((post) => displayPosts([post], container));
+      .then((post) => {
+        displayPosts([post], container);
+        postModal.remove();
+      });
   });
 };
 
 const addPost = () => {
   const post = document.querySelector(".post-btn");
-  post.addEventListener("click", (e) => {
+  post.addEventListener("click", () => {
     const postModal = createFragment([SECTION, { ...cls("post-modal") }, [
       BUTTON,
       { ...cls("close-modal-btn") },
@@ -88,7 +90,7 @@ const addPost = () => {
     body.append(postModal);
 
     const closeBtn = document.querySelector(".close-modal-btn");
-    closeBtn.addEventListener("click", (e) => {
+    closeBtn.addEventListener("click", () => {
       postModal.remove();
     });
   });
@@ -98,6 +100,9 @@ globalThis.onload = () => {
   const container = document.querySelector(".posts-container");
   fetchPosts()
     .then((posts) => displayPosts(posts, container));
-
+  fetch("/user-info").then((res) => res.json()).then(({ username }) => {
+    const usernamePlaceholder = document.querySelector(".username span");
+    usernamePlaceholder.textContent = username;
+  });
   addPost();
 };

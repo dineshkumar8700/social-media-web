@@ -15,3 +15,4 @@ export const servePosts = (ctx) => {
 
   return ctx.json(parsed);
 };
+

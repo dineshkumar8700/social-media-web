@@ -185,8 +185,15 @@ article {
   font-size: 600;
   background-color: transparent;
   color: whitesmoke;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
   margin-bottom: 5px;
+  padding: 5px 8px;
+}
+
+.close-modal-btn:hover {
+  background-color: whitesmoke;
+  border-radius: 50%;
+  color: #222;
 }
