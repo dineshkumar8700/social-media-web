@@ -1,49 +1,38 @@
 import { deleteCookie, setCookie } from "hono/cookie";
+import { login, signup } from "../manager/auth_manager.js";
 
-const extractUserInfo = (fd) => {
-  const username = fd.get("username");
-  const password = fd.get("password");
+const extractRequestBody = async (ctx) => {
+  const formData = await ctx.req.formData();
+  const username = formData.get("username");
+  const password = formData.get("password");
 
   return { username, password };
 };
 
-const setUserCookie = (ctx, username) => {
-  setCookie(ctx, "username", username);
-};
-
 export const handleLogin = async (ctx) => {
-  const formData = await ctx.req.formData();
-  const users = JSON.parse(Deno.readTextFileSync("db/in-memory/users.json"));
+  const { username, password } = await extractRequestBody(ctx);
 
-  const { username, password } = extractUserInfo(formData);
-  const user = users.find((user) => user.username === username);
-
-  if (!user || user.password !== password) {
+  try {
+    login(username, password);
+    setCookie(ctx, "username", username);
+    return ctx.json({ hasError: false });
+  } catch (error) {
     ctx.status(401);
-    return ctx.json({ hasError: true, errorCode: 401 });
+    return ctx.json({ hasError: true, errorCode: 401, error });
   }
-
-  setUserCookie(ctx, username);
-  return ctx.json({ hasError: false });
 };
 
 export const handleSignup = async (ctx) => {
-  const formData = await ctx.req.formData();
-  const users = JSON.parse(Deno.readTextFileSync("db/in-memory/users.json"));
+  const { username, password } = await extractRequestBody(ctx);
 
-  const { username, password } = extractUserInfo(formData);
-
-  const user = users.find((user) => user.username === username);
-  if (user) {
-    ctx.status(409);
-    return ctx.json({ hasError: true, errorCode: 409 });
+  try {
+    signup(username, password);
+    setCookie(ctx, "username", username);
+    return ctx.json({ hasError: false });
+  } catch (error) {
+    ctx.status(401);
+    ctx.json({ hasError: true, errorCode: 409, error });
   }
-
-  users.push({ username, password });
-  Deno.writeTextFileSync("db/in-memory/users.json", JSON.stringify(users));
-  setUserCookie(ctx, username);
-
-  return ctx.json({ hasError: false });
 };
 
 export const handleLogout = (ctx) => {

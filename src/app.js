@@ -2,10 +2,9 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
 import { logger } from "hono/logger";
 import { handleLogin, handleLogout, handleSignup } from "./handlers/auth.js";
-import { serveFeed, servePosts } from "./handlers/feed.js";
+import { serveFeed, servePosts, serveUsername } from "./handlers/feed.js";
 import { serveHome } from "./handlers/home.js";
-import { hanleAddPost } from "./handlers/post.js";
-import { getCookie } from "hono/cookie";
+import { handleAddPost } from "./handlers/post.js";
 
 export const createApp = () => {
   const app = new Hono();
@@ -13,22 +12,13 @@ export const createApp = () => {
   app.use(logger());
 
   app.get("/", serveHome);
-
   app.get("/feed", serveFeed);
-
   app.get("/posts", servePosts);
+  app.get("/user-info", serveUsername);
 
-  app.get("/user-info", (c) => {
-    const username = getCookie(c, "username");
-    return c.json({ username });
-  });
-
-  app.post("/add-post", hanleAddPost);
-
+  app.post("/add-post", handleAddPost);
   app.post("/login", handleLogin);
-
   app.post("/signup", handleSignup);
-
   app.post("/logout", handleLogout);
 
   app.get("/*", serveStatic({ root: "public" }));

@@ -11,6 +11,11 @@ const postSubmit = (postModal) => {
     form.reset();
     sendRequest("/add-post", "POST", formData)
       .then((post) => {
+        if (post.hasError) {
+          alert("Something went wrong");
+          postModal.remove();
+          return;
+        }
         const template = createPostTemplate(post);
         postsContainer.prepend(template);
         postModal.remove();

@@ -1,18 +1,19 @@
 import { getCookie } from "hono/cookie";
+import { getPosts } from "../manager/post_manager.js";
 
 export const serveFeed = (ctx) => {
   const username = getCookie(ctx, "username");
-
   if (!username) return ctx.redirect("/");
 
-  const page = Deno.readTextFileSync("public/feed.html");
-  return ctx.html(page);
+  return ctx.redirect("/feed.html");
 };
 
 export const servePosts = (ctx) => {
-  const posts = Deno.readTextFileSync("db/in-memory/posts.json");
-  const parsed = JSON.parse(posts);
-
-  return ctx.json(parsed);
+  const posts = getPosts();
+  return ctx.json(posts);
 };
 
+export const serveUsername = (c) => {
+  const username = getCookie(c, "username");
+  return c.json({ username });
+};

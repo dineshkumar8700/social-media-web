@@ -1,23 +1,16 @@
 import { getCookie } from "hono/cookie";
+import { addPost } from "../manager/post_manager.js";
 
-export const hanleAddPost = async (ctx) => {
-  const posts = JSON.parse(Deno.readTextFileSync("db/in-memory/posts.json"));
+export const handleAddPost = async (ctx) => {
   const formData = await ctx.req.formData();
   const content = formData.get("content");
   const username = getCookie(ctx, "username");
 
-  const post = {
-    postId: 11,
-    author: { name: username, username: `@${username}` },
-    time_ago: "Just now",
-    content,
-    comments: 0,
-    likes: 0,
-  };
-
-  console.log("New Post", post);
-  posts.unshift(post);
-  console.log(posts);
-
-  return ctx.json(post);
+  try {
+    const post = addPost(content, username);
+    return ctx.json(post);
+  } catch (error) {
+    ctx.status = 400;
+    return ctx.json({ hasError: true, error });
+  }
 };
