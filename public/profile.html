@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Media | Feed</title>
+  <title>Profile</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/feed.css">
 </head>
@@ -44,11 +44,11 @@
                   d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z">
                 </path>
               </svg></span>Chat</li>
-          <li><a href="/profile.html"><span><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z">
-                  </path>
-                </svg></span>Profile</a></li>
+          <li><span><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z">
+                </path>
+              </svg></span>Profile</li>
         </ul>
       </nav>
       <div class="button-container">
@@ -58,86 +58,7 @@
         </form>
       </div>
     </aside>
-
-    <section class="posts-container">
-    </section>
-
-    <aside class="sidebar">
-      <section class="search-bar">
-        <div class="search-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"
-            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1tjplnt r-1bwzh9t r-10ptun7 r-2dysd3 r-1janqcz">
-            <g>
-              <path
-                d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5 -8.5z">
-              </path>
-            </g>
-          </svg>
-        </div>
-        <input type="search" name="search" id="user-search" placeholder="search">
-      </section>
-
-      <section class="updates">
-        <h2>What's happening</h2>
-        <div class="stat">
-          <p class="category">Sports</p>
-          <h4 class="celebrity">Virat Kohli</h4>
-        </div>
-        <div class="stat">
-          <p class="category">Politics</p>
-          <h4 class="celebrity">PM Modi</h4>
-        </div>
-        <div class="stat">
-          <p class="category">World</p>
-          <h4 class="celebrity">Trump</h4>
-        </div>
-        <div class="stat">
-          <p class="category">Mumbai Indians</p>
-          <h4 class="celebrity">Hardik Pandya</h4>
-        </div>
-      </section>
-
-      <section class="newsletter">
-        <h2>Subscribe to Newsletter</h2>
-        <p>Stay tuned for all the upcoming event early</p>
-        <button>Subscribe</button>
-      </section>
-    </aside>
   </main>
-
-  <template class="post-template">
-    <article>
-      <div class="user-avatar">
-        <img src="" alt="user display picture">
-      </div>
-      <div class="post-details">
-        <div class="user-detail">
-          <h4></h4>
-          <p></p>
-        </div>
-        <p class="post-time"></p>
-        <p class="post-content"></p>
-        <div class="post-impressions">
-          <p class="comments">Comments: <span></span></p>
-          <p class="likes">Likes: <span></span></p>
-        </div>
-      </div>
-    </article>
-  </template>
-
-  <template id="new-post-template">
-    <section class="post-modal">
-      <button class="close-btn">X</button>
-      <form action="/add-post" method="POST" class="new-post-form">
-        <div>
-          <textarea name="content" placeholder="What's in your mind today..." rows="8" required></textarea>
-        </div>
-        <button type="submit">Post</button>
-      </form>
-    </section>
-  </template>
-
-  <script type="module" src="scripts/feed.js"></script>
 </body>
 
 </html>

@@ -29,6 +29,8 @@ aside {
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 20px;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 aside ul li {
@@ -143,10 +145,13 @@ article {
 }
 
 .sidebar {
-  background-color: #222;
   width: 22%;
   height: 85vh;
   margin-left: 20px;
+  border-left: 1px solid #c6c1c1;
+  padding: 1em;
+  justify-content: flex-start;
+  gap: 1.5em;
 }
 
 .post-impressions svg {
@@ -196,4 +201,64 @@ article {
   background-color: whitesmoke;
   border-radius: 50%;
   color: #222;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 1em 2em;
+  border: 1px solid #c6c1c1;
+  border-radius: 2em;
+  font-size: 16px;
+}
+
+.search-icon {
+  width: 1em;
+  position: absolute;
+  top: 32%;
+  left: 4%;
+  fill: #444;
+}
+
+.updates, .newsletter {
+  padding: 1em;
+  border: 1px solid #c6c1c1;
+  border-radius: 1em;
+}
+
+.updates h2, .newsletter h2 {
+  padding-bottom: 0.8em;
+  color: #222;
+}
+
+.updates .stat {
+  cursor: pointer;
+}
+
+.updates .category {
+  font-size: 0.8em;
+  font-weight: 400;
+  margin-bottom: 0.2em;
+}
+
+.updates .celebrity {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #222;
+}
+
+.updates .stat:not(.stat:last-child) {
+  margin-bottom: 1em;
+}
+
+.newsletter p {
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+
+.newsletter button {
+  width: none;
 }
