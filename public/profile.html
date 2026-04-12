@@ -7,6 +7,8 @@
   <title>Profile</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/feed.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <script type="module" src="scripts/feed.js"></script>
 </head>
 
 <body>
@@ -58,7 +60,79 @@
         </form>
       </div>
     </aside>
+
+    <section class="profile-container">
+      <section class="banner"></section>
+      <section class="profile-info">
+        <div class="profile-image">
+          <img src="/images/user-avatar.png" alt="user profile picture">
+          <button class="edit-profile-btn">Edit Profile</button>
+        </div>
+        <h2 class="name">Dinesh Kumar</h2>
+        <p class="user-name">@dineshkumar87</p>
+        <p class="joined-date">Joinded February 2026</p>
+        <div class="profile-stats">
+          <p class="followers"><span>74</span>Following</p>
+          <p class="following"><span>97</span>Followers</p>
+        </div>
+        <hr class="line-divider">
+      </section>
+    </section>
+
+    <aside class=" sidebar">
+      <section class="search-bar">
+        <div class="search-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"
+            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-1tjplnt r-1bwzh9t r-10ptun7 r-2dysd3 r-1janqcz">
+            <g>
+              <path
+                d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5 -8.5z">
+              </path>
+            </g>
+          </svg>
+        </div>
+        <input type="search" name="search" id="user-search" placeholder="search">
+      </section>
+
+      <section class="updates">
+        <h2>What's happening</h2>
+        <div class="stat">
+          <p class="category">Sports</p>
+          <h4 class="celebrity">Virat Kohli</h4>
+        </div>
+        <div class="stat">
+          <p class="category">Politics</p>
+          <h4 class="celebrity">PM Modi</h4>
+        </div>
+        <div class="stat">
+          <p class="category">World</p>
+          <h4 class="celebrity">Trump</h4>
+        </div>
+        <div class="stat">
+          <p class="category">Mumbai Indians</p>
+          <h4 class="celebrity">Hardik Pandya</h4>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <h2>Subscribe to Newsletter</h2>
+        <p>Never miss out—be the first to know about new events and updates.</p>
+        <button>Subscribe</button>
+      </section>
+    </aside>
   </main>
+
+  <template id="new-post-template">
+    <section class="post-modal">
+      <button class="close-btn">X</button>
+      <form action="/add-post" method="POST" class="new-post-form">
+        <div>
+          <textarea name="content" placeholder="What's in your mind today..." rows="8" required></textarea>
+        </div>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+  </template>
 </body>
 
 </html>
