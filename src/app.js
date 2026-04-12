@@ -5,6 +5,7 @@ import { handleLogin, handleLogout, handleSignup } from "./handlers/auth.js";
 import { serveFeed, servePosts, serveUsername } from "./handlers/feed.js";
 import { serveHome } from "./handlers/home.js";
 import { handleAddPost } from "./handlers/post.js";
+import { serveProfile } from "./handlers/profile.js";
 
 export const createApp = () => {
   const app = new Hono();
@@ -15,6 +16,7 @@ export const createApp = () => {
   app.get("/feed", serveFeed);
   app.get("/posts", servePosts);
   app.get("/user-info", serveUsername);
+  app.get("/profile", serveProfile);
 
   app.post("/add-post", handleAddPost);
   app.post("/login", handleLogin);
